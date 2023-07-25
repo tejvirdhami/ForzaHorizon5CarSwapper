@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -136,6 +137,11 @@ namespace ForzaCarSwapper
         {
             updateScanLabel("N/A");
             lblScanStatus.ForeColor= Color.Black;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "https://github.com/tejvirdhami");
         }
     }
 }

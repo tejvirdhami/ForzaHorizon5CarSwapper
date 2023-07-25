@@ -127,11 +127,15 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(128, 189);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label3.Location = new System.Drawing.Point(154, 189);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(150, 20);
             this.label3.TabIndex = 10;
             this.label3.Text = "© 2023 Tejvir Dhami";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // MainForm
             // 
