@@ -23,6 +23,7 @@ namespace ForzaCarSwapper
             InitializeComponent();
             btnSwap.Enabled = false;
             txtSwapId.Enabled = false;
+            MessageBox.Show("Modding games carries inherent risks, and the usage of this mod is at your own responsibility. Ensure that you comply with the game's terms of service and only use mods in single-player or modding-friendly environments.", "Disclaimer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         bool ProcOpen = false;
@@ -75,46 +76,55 @@ namespace ForzaCarSwapper
 
         private void btnScan_Click(object sender, EventArgs e)
         {
-            updateScanLabel("");
-            Addresses = null;
-
-            Thread ScanThread = new Thread(async () =>
+            if (ProcOpen)
             {
-                try
-                {
-                    updateScanLabel("Scanning...");
-                    Addresses = await m.AoBScan("BB 0B 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00", true, true, false);
-                }
-                catch { }
+                updateScanLabel("");
+                Addresses = null;
 
-                if (Addresses != null)
+                Thread ScanThread = new Thread(async () =>
                 {
-                    if (btnSwap.InvokeRequired)
+                    try
                     {
-                        btnSwap.BeginInvoke((MethodInvoker)(() => {
+                        updateScanLabel("Scanning...");
+                        Addresses = await m.AoBScan("BB 0B 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00", true, true, false);
+                    }
+                    catch { }
+
+                    if (Addresses != null)
+                    {
+                        if (btnSwap.InvokeRequired)
+                        {
+                            btnSwap.BeginInvoke((MethodInvoker)(() =>
+                            {
+                                updateScanLabel("Viper found!");
+                                lblScanStatus.ForeColor = Color.Green;
+                                btnSwap.Enabled = true;
+                                txtSwapId.Enabled = true;
+                            }));
+                        }
+                        else
+                        {
                             updateScanLabel("Viper found!");
                             lblScanStatus.ForeColor = Color.Green;
                             btnSwap.Enabled = true;
                             txtSwapId.Enabled = true;
-                        }));
+                        }
                     }
                     else
-                    {
-                        updateScanLabel("Viper found!");
-                        lblScanStatus.ForeColor = Color.Green;
-                        btnSwap.Enabled = true;
-                        txtSwapId.Enabled = true;
-                    }
-                }
-                else
                     updateScanLabel("Failed to find Viper!");
-                lblScanStatus.ForeColor = Color.Red;
-            });
-            ScanThread.Start();
+                    lblScanStatus.ForeColor = Color.Red;
+                });
+                ScanThread.Start();
+            }
+            else
+            { 
+                MessageBox.Show("Open the Game first and hove over FD Viper!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void btnSwap_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("We do not encourage to cheat or spam other players", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             if (Regex.IsMatch(txtSwapId.Text, @"^[0-9]+$") && Addresses != null)
             {
                 foreach (long addr in Addresses)
@@ -142,6 +152,11 @@ namespace ForzaCarSwapper
         private void label3_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", "https://github.com/tejvirdhami");
+        }
+
+        private void btnCarIds_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "https://github.com/tejvirdhami/ForzaHorizon5CarIdList");
         }
     }
 }
