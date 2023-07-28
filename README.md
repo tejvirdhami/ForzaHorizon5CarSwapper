@@ -10,7 +10,6 @@ A small mod written in c# to swap cars
 
 <h2 align="center">Usage</h2>
 
-Tutorial: https://youtu.be/WZZ7wPYdJCE
 
 1. Download from github or build yourself.
 
